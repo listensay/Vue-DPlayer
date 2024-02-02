@@ -2,16 +2,50 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <p>123</p>
+    <DPlayer ref="DPlayer"/>
+    <button @click="stop">暂停</button>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import DPlayer from './components/DPlayer.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    DPlayer
+  },
+  methods: {
+    stop() {
+      this.$refs.DPlayer.dp.pause();
+    }
+  },
+  mounted() {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].intersectionRatio <= 0) {
+        this.$refs.DPlayer.dp.pause();
+      } else {
+        this.$refs.DPlayer.dp.play();
+      }
+    });
+
+    observer.observe(this.$refs.DPlayer.$el);
+
   }
 }
 </script>
